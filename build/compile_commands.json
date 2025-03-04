@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/mimixtop/dev/OOP/LABA_1/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/LABA_1.dir/main.cpp.o -c /home/mimixtop/dev/OOP/LABA_1/main.cpp",
+  "file": "/home/mimixtop/dev/OOP/LABA_1/main.cpp",
+  "output": "CMakeFiles/LABA_1.dir/main.cpp.o"
+},
+{
+  "directory": "/home/mimixtop/dev/OOP/LABA_1/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/LABA_1.dir/client.cpp.o -c /home/mimixtop/dev/OOP/LABA_1/client.cpp",
+  "file": "/home/mimixtop/dev/OOP/LABA_1/client.cpp",
+  "output": "CMakeFiles/LABA_1.dir/client.cpp.o"
+},
+{
+  "directory": "/home/mimixtop/dev/OOP/LABA_1/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/LABA_1.dir/function.cpp.o -c /home/mimixtop/dev/OOP/LABA_1/function.cpp",
+  "file": "/home/mimixtop/dev/OOP/LABA_1/function.cpp",
+  "output": "CMakeFiles/LABA_1.dir/function.cpp.o"
+},
+{
+  "directory": "/home/mimixtop/dev/OOP/LABA_1/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/LABA_1.dir/journal.cpp.o -c /home/mimixtop/dev/OOP/LABA_1/journal.cpp",
+  "file": "/home/mimixtop/dev/OOP/LABA_1/journal.cpp",
+  "output": "CMakeFiles/LABA_1.dir/journal.cpp.o"
+}
+]
