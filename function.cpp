@@ -29,7 +29,9 @@ void AddMenu(){
     std::cout << "====================================" << std::endl;
     std::cout << "1.Add client" << std::endl;
     std::cout << "2.Add compani" << std::endl;
-    std::cout << "3.Back" << std::endl;
+    std::cout << "3.Add copy client" << std::endl;
+    std::cout << "4.Add copy compani" << std::endl;
+    std::cout << "5.Back" << std::endl;
     std::cout << "====================================" << std::endl;
 }
 

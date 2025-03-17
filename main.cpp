@@ -2,17 +2,21 @@
 #include <string>
 #include <vector> 
 
+#include "client.hpp"
 #include "journal.hpp"
 #include "function.hpp"
 
 int main(){
-    std::vector<Journal> journals{};
-    Journal journal;
+    std::vector<Journal> journals;
+    journals.reserve(10);
+    Journal journal = Journal();
     int choice;
     bool finish = true;
     std::string name, addr, s;
     Client cl;
+    Client bb = Client{"BOB","st.jh 8",12};
     int num;
+    pause();
 
     while (true) {
 
@@ -41,8 +45,6 @@ int main(){
                         name = test(M_NAME,"Entry client name: ");
                         addr = test(M_ADDR, "Entry client addr: ");
                         num = stoi(test(M_INT,"Entry client number of document: "));
-                        
-                        cl.set(name,addr,num);
 
                         if(journals.size() != 1){
                             while (true) {
@@ -53,22 +55,63 @@ int main(){
                                 std::cout << "Invalid input" << std::endl;
                             }
                         }else{
-                            journals.begin()->addClient(cl);
+                            journals.begin()->addClient(std::move(Client(name,addr,num)));
+                            pause();
+                            std::cin.clear();
                             break;
                         }
 
-                        journals.at(num - 1).addClient(cl);
-
+                        journals.at(num - 1).addClient(Client(name,addr,num));
+                        pause();
+                        std::cin.clear();
                         break;
                     case addMenu::ADD_COMPANI:
                         name = test(M_NAME,"Entry compani name: ");
                         s = test(M_TEL,"Entry compani tel: ");
-                        journal.setAllFields(name, s, {});
+                        //journal.setAllFields(name, s, {});
 
-                        journals.push_back(journal);
+                        journals.push_back(Journal{name, s, {}});
+                        pause();
                         std::cin.clear();
                         break;
-                    case 3:
+                    case ADD_COPY_CL:
+                        name = test(M_NAME,"Entry client name: ");
+                        addr = test(M_ADDR, "Entry client addr: ");
+                        num = stoi(test(M_INT,"Entry client number of document: "));
+                        choice = stoi(test(M_INT,"Entry count copy client: "));
+
+                        if(journals.size() != 1){
+                            while (true) {
+                                num = stoi(test(M_INT,"Enter the company number to be added: "));
+                                if(num <= journals.size()) {
+                                    break;
+                                }
+                                std::cout << "Invalid input" << std::endl;
+                            }
+                        }else{
+                            cl = Client(name,addr,num);
+                            journals.begin()->createCopyList(cl,choice);
+                            pause();
+                            std::cin.clear();
+                            break;
+                        }
+                        cl = Client(name,addr,num);
+                        journals.at(num - 1).createCopyList(cl,choice);
+                        pause();
+                        std::cin.clear();
+                        break;
+                    case ADD_COPY_COM:
+                        name = test(M_NAME,"Entry compani name: ");
+                        s = test(M_TEL,"Entry compani tel: ");
+                        choice = stoi(test(M_INT,"Entry count copy compani: "));
+                        journal = Journal{name, s, {}};
+                        for (size_t i = 0; i < choice; ++i) {
+                            journals.push_back(journal);
+                        }                        
+                        pause();
+                        std::cin.clear();
+                        break;
+                    case 5:
                         finish = false;
                         break;
                     }
@@ -258,6 +301,10 @@ int main(){
                 break;
             case 5:
                 exit(0);
+                break;
+            case 6:
+                
+                journals.at(0).createCopyList(bb,10);
                 break;
             default:
                 break;

@@ -29,7 +29,7 @@ void Journal::setCompaniName(std::string s){
 }
 
 void Journal::setAllFields(std::string compName, std::string tel, std::list<Client> list){
-    m_clients = list;
+    m_clients = std::move(list);
     m_companiName = compName;
     m_telefonNumber = tel;
 }
@@ -107,4 +107,10 @@ void Journal::print(){
         client.printClient();
     }
     
+}
+
+void Journal::createCopyList(Client& cl, int number){
+    for(int i = 0; i < number;++i){
+        m_clients.emplace_back(cl);
+    }
 }

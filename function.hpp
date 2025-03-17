@@ -4,7 +4,7 @@
 enum typeTest {M_INT, M_NAME, M_ADDR, M_TEL};
 
 enum mainMenu {ADD_MENU = 1, MODIF, REMOV, PRINT};
-enum addMenu {ADD_CLIENT = 1, ADD_COMPANI};
+enum addMenu {ADD_CLIENT = 1, ADD_COMPANI, ADD_COPY_CL, ADD_COPY_COM};
 enum modMenu {MOD_CLIENT = 1, MOD_COMP};
 enum removMenu {REMOV_CL = 1, REMOV_CL_ALL, REMOV_CM, REMOV_CM_ALL};
 
