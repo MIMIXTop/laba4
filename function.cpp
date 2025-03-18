@@ -31,7 +31,9 @@ void AddMenu(){
     std::cout << "2.Add compani" << std::endl;
     std::cout << "3.Add copy client" << std::endl;
     std::cout << "4.Add copy compani" << std::endl;
-    std::cout << "5.Back" << std::endl;
+    std::cout << "5.Add UrClient" << std::endl;
+    std::cout << "6.Add IndClient" << std::endl;
+    std::cout << "7.Back" << std::endl;
     std::cout << "====================================" << std::endl;
 }
 
@@ -64,7 +66,9 @@ void ModMenu_client(){
     std::cout << "1.Modificot client name " << std::endl;
     std::cout << "2.Modificot addr" << std::endl;
     std::cout << "3.Modificot number of document " << std::endl;
-    std::cout << "4.Back" << std::endl;
+    std::cout << "4.Modificot type of UrClient " << std::endl;
+    std::cout << "5.Modificot gender of IndClient " << std::endl;
+    std::cout << "6.Back" << std::endl;
     std::cout << "====================================" << std::endl;
 }
 
@@ -214,6 +218,30 @@ std::string test(typeTest magicNumber ,std::string str){
                 std::getline(std::cin, s);
 
                 if (!isTelNum(s)) {
+                    continue;
+                }else{
+                    return s;
+                }
+            }
+            break;
+        case M_IND:// tel
+            while (true) {
+                std::cout << str;
+                std::getline(std::cin, s);
+
+                if (s != "wonem" && s != "man") {
+                    continue;
+                }else{
+                    return s;
+                }
+            }
+            break;
+        case M_UR:// tel
+            while (true) {
+                std::cout << str;
+                std::getline(std::cin, s);
+
+                if (s != "OOO" && s != "IP" && s != "OAO") {
                     continue;
                 }else{
                     return s;

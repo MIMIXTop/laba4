@@ -13,14 +13,14 @@ class Journal
 private:
     std::string m_telefonNumber;
     std::string m_companiName;
-    std::list<Client> m_clients {};
+    std::list<Client*> m_clients {};
 public:
 
     Journal(){
         std::cout << "Default constructor Journal" << std::endl;
     }
 
-    Journal(std::string compName, std::string tel, std::list<Client> list) : m_companiName(compName), m_telefonNumber(tel), m_clients(list) {
+    Journal(std::string compName, std::string tel, std::list<Client*> list) : m_companiName(compName), m_telefonNumber(tel), m_clients(list) {
         std::cout << "Constructor Journal" << std::endl;
     };
 
@@ -29,6 +29,10 @@ public:
     }
 
     ~Journal(){
+        for (auto client : m_clients) {
+            delete client; 
+        }
+        m_clients.clear();
         std::cout << "Destructor Journal" <<std::endl;
     }
 
@@ -49,7 +53,7 @@ public:
 
     std::string getTelefonNumber();
     std::string getCompaniName();
-    std::list<Client> getClients();
+    std::list<Client*> getClients();
     int getSizeListOfClient();
 
     void modClient(int clNum, clientFilds field);
@@ -57,9 +61,9 @@ public:
 
     void setTelefonNumber(std::string tel);
     void setCompaniName(std::string name);
-    void setAllFields(std::string compName, std::string tel, std::list<Client>);
+    void setAllFields(std::string compName, std::string tel, std::list<Client*>);
     
-    void addClient(Client cl);
+    void addClient(Client *cl);
 
     void createCopyList(Client &cl, int number);
 

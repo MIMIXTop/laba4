@@ -5,6 +5,8 @@
 #include "client.hpp"
 #include "journal.hpp"
 #include "function.hpp"
+#include "UrClient.hpp"
+#include "IndClient.hpp"
 
 int main(){
     std::vector<Journal> journals;
@@ -13,10 +15,10 @@ int main(){
     int choice;
     bool finish = true;
     std::string name, addr, s;
+    std::string type, gender;
     Client cl;
     Client bb = Client{"BOB","st.jh 8",12};
     int num;
-    pause();
 
     while (true) {
 
@@ -55,20 +57,19 @@ int main(){
                                 std::cout << "Invalid input" << std::endl;
                             }
                         }else{
-                            journals.begin()->addClient(std::move(Client(name,addr,num)));
+                            journals.begin()->addClient(new Client(name,addr,num));
                             pause();
                             std::cin.clear();
                             break;
                         }
 
-                        journals.at(num - 1).addClient(Client(name,addr,num));
+                        journals.at(num - 1).addClient(new Client(name,addr,num));
                         pause();
                         std::cin.clear();
                         break;
                     case addMenu::ADD_COMPANI:
                         name = test(M_NAME,"Entry compani name: ");
                         s = test(M_TEL,"Entry compani tel: ");
-                        //journal.setAllFields(name, s, {});
 
                         journals.push_back(Journal{name, s, {}});
                         pause();
@@ -92,13 +93,11 @@ int main(){
                             cl = Client(name,addr,num);
                             journals.begin()->createCopyList(cl,choice);
                             pause();
-                            std::cin.clear();
                             break;
                         }
                         cl = Client(name,addr,num);
                         journals.at(num - 1).createCopyList(cl,choice);
                         pause();
-                        std::cin.clear();
                         break;
                     case ADD_COPY_COM:
                         name = test(M_NAME,"Entry compani name: ");
@@ -109,9 +108,74 @@ int main(){
                             journals.push_back(journal);
                         }                        
                         pause();
-                        std::cin.clear();
                         break;
-                    case 5:
+                    case ADD_UR_CLIENT:
+                        if (journals.size() == 0) {
+                            std::cout << "Company list is empty" << std::endl;
+                            pause();
+                            break;
+                        }
+                    
+                        name = test(M_NAME, "Entry client name: ");
+                        addr = test(M_ADDR, "Entry client addr: ");
+                        num = stoi(test(M_INT, "Entry client number of document: "));
+                        
+                        std::cout << "Enter type of UrClient: ";
+                        std::cin >> type;
+                    
+                        if (journals.size() != 1) {
+                            while (true) {
+                                num = stoi(test(M_INT, "Enter the company number to be added: "));
+                                if (num <= journals.size()) {
+                                    break;
+                                }
+                                std::cout << "Invalid input" << std::endl;
+                            }
+                        } else {
+                            journals.begin()->addClient(new UrClient(name, addr, num, type));
+                            pause();
+                            std::cin.get();
+                            break;
+                        }
+                    
+                        journals.at(num - 1).addClient(new UrClient(name, addr, num, type));
+                        pause();
+                        std::cin.get();
+                        break;
+                    
+                    case ADD_IND_CLIENT:
+                        if (journals.size() == 0) {
+                            std::cout << "Company list is empty" << std::endl;
+                            pause();
+                            break;
+                        }
+                    
+                        name = test(M_NAME, "Entry client name: ");
+                        addr = test(M_ADDR, "Entry client addr: ");
+                        num = stoi(test(M_INT, "Entry client number of document: "));
+                        std::cout << "Enter gender of IndClient: ";
+                        std::cin >> gender;
+                    
+                        if (journals.size() != 1) {
+                            while (true) {
+                                num = stoi(test(M_INT, "Enter the company number to be added: "));
+                                if (num <= journals.size()) {
+                                    break;
+                                }
+                                std::cout << "Invalid input" << std::endl;
+                            }
+                        } else {
+                            journals.begin()->addClient(new IndClient(name, addr, num, gender));
+                            pause();
+                            std::cin.get();
+                            break;
+                        }
+                    
+                        journals.at(num - 1).addClient(new IndClient(name, addr, num, gender));
+                        pause();
+                        std::cin.get();
+                        break;
+                    case 7:
                         finish = false;
                         break;
                     }
@@ -169,7 +233,31 @@ int main(){
                                 clientNum = std::stoi(test(M_INT, "Entry the number client: "));
                                 journals.at(num - 1).modClient(clientNum, CL_NUM_DOC);
                                 break;
-                            case 4:
+                            case CL_TYPE:
+                                while (true) {
+                                    num = std::stoi(test(M_INT, "Entry the number compani: "));
+                                    if(num <= journals.size()){
+                                        break;
+                                    }
+                                    std::cout << "Invalid input" << std::endl;
+                                }
+                                
+                                clientNum = std::stoi(test(M_INT, "Entry the number client: "));
+                                journals.at(num - 1).modClient(clientNum, CL_TYPE);
+                                break;
+                            case CL_GEN:
+                                while (true) {
+                                    num = std::stoi(test(M_INT, "Entry the number compani: "));
+                                    if(num <= journals.size()){
+                                        break;
+                                    }
+                                    std::cout << "Invalid input" << std::endl;
+                                }
+                                
+                                clientNum = std::stoi(test(M_INT, "Entry the number client: "));
+                                journals.at(num - 1).modClient(clientNum, CL_GEN);
+                                break;
+                            case 6:
                                 finish = false;
                                 break; 
                             default:
@@ -253,6 +341,8 @@ int main(){
                                 std::cout << "Invalid input" << std::endl;
                             }
                         }
+                        std::cin.get();
+                        std::cin.get();
                         break;
                     case REMOV_CL_ALL:
                         while (true) {
@@ -265,6 +355,8 @@ int main(){
                         }
 
                         journals.at(num - 1).removClient();
+                        std::cin.get();
+                        std::cin.get();
                         break;
                     case REMOV_CM:
                         while (true) {

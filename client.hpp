@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-enum clientFilds {CL_NAME = 1, CL_ADDR, CL_NUM_DOC};
+enum clientFilds {CL_NAME = 1, CL_ADDR, CL_NUM_DOC, CL_TYPE, CL_GEN};
 
 class Client
 {
@@ -51,7 +51,7 @@ public:
     void set(int);// m_numberDoc
     void set(std::string, std::string, int);// all
 
-    void printClient();
+    virtual void printClient();
 };
 
 #endif //CLIENT_HPP
