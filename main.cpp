@@ -18,7 +18,14 @@ int main(){
     std::string type, gender;
     Client cl;
     Client bb = Client{"BOB","st.jh 8",12};
+    /*UrClient* ur = new UrClient{"BOB","st.jh 8",12,"OOO"};
+    IndClient* id = new IndClient{"BOB","st.jh 8",12,"man"};
+
+    delete ur;
+    delete id;
+    pause();*/
     int num;
+
 
     while (true) {
 
@@ -70,6 +77,7 @@ int main(){
                     case addMenu::ADD_COMPANI:
                         name = test(M_NAME,"Entry compani name: ");
                         s = test(M_TEL,"Entry compani tel: ");
+                        //journal.setAllFields(name, s, {});
 
                         journals.push_back(Journal{name, s, {}});
                         pause();
@@ -93,11 +101,13 @@ int main(){
                             cl = Client(name,addr,num);
                             journals.begin()->createCopyList(cl,choice);
                             pause();
+                            std::cin.clear();
                             break;
                         }
                         cl = Client(name,addr,num);
                         journals.at(num - 1).createCopyList(cl,choice);
                         pause();
+                        std::cin.clear();
                         break;
                     case ADD_COPY_COM:
                         name = test(M_NAME,"Entry compani name: ");
@@ -108,6 +118,7 @@ int main(){
                             journals.push_back(journal);
                         }                        
                         pause();
+                        std::cin.clear();
                         break;
                     case ADD_UR_CLIENT:
                         if (journals.size() == 0) {
