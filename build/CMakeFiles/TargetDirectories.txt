@@ -1,3 +1,0 @@
-/home/mimixtop/dev/OOP/LABA_1/build/CMakeFiles/LABA_1.dir
-/home/mimixtop/dev/OOP/LABA_1/build/CMakeFiles/edit_cache.dir
-/home/mimixtop/dev/OOP/LABA_1/build/CMakeFiles/rebuild_cache.dir
