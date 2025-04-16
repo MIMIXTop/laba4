@@ -51,7 +51,8 @@ public:
     void set(int);// m_numberDoc
     void set(std::string, std::string, int);// all
 
-    virtual void printClient();
+    virtual void printClient() = 0;
+    virtual Client* clone() = 0;
 };
 
 #endif //CLIENT_HPP

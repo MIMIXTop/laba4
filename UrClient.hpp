@@ -34,5 +34,9 @@ public:
         std::cout << "UrClient document number: " << getNumberDoc() << std::endl; 
         std::cout << "UrClient UrClient: " << type << std::endl; 
     }
+
+    UrClient* clone() override {
+        return new UrClient(*this);
+    }
 };
 

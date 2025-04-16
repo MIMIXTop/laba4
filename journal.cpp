@@ -125,6 +125,6 @@ void Journal::print(){
 
 void Journal::createCopyList(Client& cl, int number){
     for(int i = 0; i < number;++i){
-        m_clients.emplace_back(new Client(cl));
+        m_clients.emplace_back(cl.clone());
     }
 }

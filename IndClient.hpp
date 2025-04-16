@@ -34,5 +34,9 @@ public:
         std::cout << "IndClient document number: " << getNumberDoc() << std::endl; 
         std::cout << "IndClient gender: " << gender << std::endl; 
     }
+
+    IndClient* clone() override {
+        return new IndClient(*this);
+    }
 };
 

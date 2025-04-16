@@ -12,14 +12,17 @@ int main(){
     std::vector<Journal> journals;
     journals.reserve(10);
     Journal journal = Journal();
-    int choice;
+    int choice, choiceClient;
     bool finish = true;
     std::string name, addr, s;
     std::string type, gender;
-    Client cl;
-    Client bb = Client{"BOB","st.jh 8",12};
-    /*UrClient* ur = new UrClient{"BOB","st.jh 8",12,"OOO"};
-    IndClient* id = new IndClient{"BOB","st.jh 8",12,"man"};
+
+    UrClient ur = UrClient{"BOB","st.jh 8",12,"OOO"};
+    IndClient id = IndClient{"BOB","st.jh 8",12,"man"};
+
+/*     Client cl;
+    Client bb = Client{"BOB","st.jh 8",12}; */
+    /*
 
     delete ur;
     delete id;
@@ -43,7 +46,7 @@ int main(){
 
                     switch (choice)
                     {
-                    case addMenu::ADD_CLIENT:
+                    /* case addMenu::ADD_CLIENT:
 
                         if (journals.size() == 0 && choice == 1){
                             std::cout << "Compani list is empty" << std::endl;
@@ -73,7 +76,7 @@ int main(){
                         journals.at(num - 1).addClient(new Client(name,addr,num));
                         pause();
                         std::cin.clear();
-                        break;
+                        break; */
                     case addMenu::ADD_COMPANI:
                         name = test(M_NAME,"Entry compani name: ");
                         s = test(M_TEL,"Entry compani tel: ");
@@ -87,6 +90,18 @@ int main(){
                         name = test(M_NAME,"Entry client name: ");
                         addr = test(M_ADDR, "Entry client addr: ");
                         num = stoi(test(M_INT,"Entry client number of document: "));
+                        choiceClient = stoi(test(M_TYPE_CL,"Entry client type(Ur, Ind): "));
+                        switch (choiceClient)
+                        {
+                        case 1:
+                            type = test(M_UR, "Enter type of UrClient: ");
+                            break;
+                        case 2:
+                            type = test(M_IND, "Enter gender of IndClient: ");
+                            break;
+                        default:
+                            break;
+                        }
                         choice = stoi(test(M_INT,"Entry count copy client: "));
 
                         if(journals.size() != 1){
@@ -98,14 +113,38 @@ int main(){
                                 std::cout << "Invalid input" << std::endl;
                             }
                         }else{
-                            cl = Client(name,addr,num);
-                            journals.begin()->createCopyList(cl,choice);
+
+                            switch (choiceClient)
+                            {
+                            case 1:
+                                ur = UrClient(name,addr,num,type);
+                                journals.begin()->createCopyList(ur,choice);
+                                break;
+                            case 2:
+                                id = IndClient(name,addr,num,type);
+                                journals.begin()->createCopyList(id,choice);
+                                break;
+                            default:
+                                break;
+                            }
                             pause();
                             std::cin.clear();
                             break;
                         }
-                        cl = Client(name,addr,num);
-                        journals.at(num - 1).createCopyList(cl,choice);
+
+                        switch (choiceClient)
+                            {
+                            case 1:
+                                ur = UrClient(name,addr,num,type);
+                                journals.at(num - 1).createCopyList(ur,choice);
+                                break;
+                            case 2:
+                                id = IndClient(name,addr,num,type);
+                                journals.at(num - 1).createCopyList(id,choice);
+                                break;
+                            default:
+                                break;
+                            }
                         pause();
                         std::cin.clear();
                         break;
@@ -186,7 +225,7 @@ int main(){
                         pause();
                         std::cin.get();
                         break;
-                    case 7:
+                    case 6:
                         finish = false;
                         break;
                     }
@@ -407,7 +446,7 @@ int main(){
                 break;
             case 6:
                 
-                journals.at(0).createCopyList(bb,10);
+                //journals.at(0).createCopyList(bb,10);
                 break;
             default:
                 break;

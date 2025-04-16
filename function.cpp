@@ -27,13 +27,12 @@ void AddMenu(){
     std::cout << "====================================" << std::endl;
     std::cout << "              Add Menu              " << std::endl;
     std::cout << "====================================" << std::endl;
-    std::cout << "1.Add client" << std::endl;
-    std::cout << "2.Add compani" << std::endl;
-    std::cout << "3.Add copy client" << std::endl;
-    std::cout << "4.Add copy compani" << std::endl;
-    std::cout << "5.Add UrClient" << std::endl;
-    std::cout << "6.Add IndClient" << std::endl;
-    std::cout << "7.Back" << std::endl;
+    std::cout << "1.Add compani" << std::endl;
+    std::cout << "2.Add copy client" << std::endl;
+    std::cout << "3.Add copy compani" << std::endl;
+    std::cout << "4.Add UrClient" << std::endl;
+    std::cout << "5.Add IndClient" << std::endl;
+    std::cout << "6.Back" << std::endl;
     std::cout << "====================================" << std::endl;
 }
 
@@ -245,6 +244,22 @@ std::string test(typeTest magicNumber ,std::string str){
                     continue;
                 }else{
                     return s;
+                }
+            }
+            break;
+        case M_TYPE_CL:
+            while (true) {
+                std::cout << str;
+                std::getline(std::cin, s);
+
+                if (s != "Ur" && s != "Ind") {
+                    continue;
+                }else{
+                    if(s == "Url"){
+                        return "1";
+                    }else{
+                        return "2";
+                    }
                 }
             }
             break;

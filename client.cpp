@@ -30,9 +30,3 @@ void Client::set(std::string name,std::string addr,int numDoc){
     m_addres = addr;
     m_numberDoc = numDoc;
 }
-
-void Client::printClient() {
-    std::cout << "Client name: " << m_name << std::endl; 
-    std::cout << "Client addr: " << m_addres << std::endl; 
-    std::cout << "Client document number: " << m_numberDoc << std::endl; 
-}
