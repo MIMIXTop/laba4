@@ -66,6 +66,7 @@
         "charconv": "cpp",
         "format": "cpp",
         "span": "cpp",
-        "text_encoding": "cpp"
+        "text_encoding": "cpp",
+        "stdfloat": "cpp"
     }
 }

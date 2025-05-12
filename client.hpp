@@ -26,9 +26,7 @@ public:
         std::cout << "Copy constructor Client" << std::endl;
     }
 
-    ~Client(){
-        std::cout << "Destructor Client" << std::endl;
-    }
+    virtual ~Client() = default;
 
     Client(Client&& cl) : m_name(std::move(cl.m_name)), m_addres(std::move(cl.m_addres)), m_numberDoc(std::move(cl.m_numberDoc)) {
         cl.m_name.clear();
@@ -42,17 +40,25 @@ public:
     Client& operator=(Client&& cl) noexcept = default;
 
 
-    std::string getName();
-    std::string getAddres();
-    int getNumberDoc();
+    std::string getName() const;
+    std::string getAddres() const;
+    int getNumberDoc() const;
 
     void set(std::string); // m_name
     void setAddr(std::string);// m_addres
     void set(int);// m_numberDoc
     void set(std::string, std::string, int);// all
 
-    virtual void printClient() = 0;
+    virtual void printClient(std::ostream& os) const = 0;
     virtual Client* clone() = 0;
+
+    virtual bool operator==(const Client& cl) = 0;
+    virtual bool operator<(const Client& cl) = 0;
+    virtual bool operator>(const Client& cl) = 0;
+
+    
 };
+
+std::ostream& operator<<(std::ostream& os,const Client& cl);
 
 #endif //CLIENT_HPP

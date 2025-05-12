@@ -136,7 +136,7 @@ bool isTelNum(std::string s) {
     return true;
 }
 
-bool isValidAddr(const std::string& s){
+bool isValidAddr(const std::string& s) {
     if((s[0] == 's' && s[1] == 't' && s[2] == '.') || 
         (s[0] == 'a' && s[1] == 'v' && s[2] == '.') ) {
             for (size_t i = 3; i < s.size(); ++i) {
@@ -164,10 +164,10 @@ bool isValidAddr(const std::string& s){
                     return false;
                 }
             }
-        } else {
-            std::cout << "Incorrect input addr" << std::endl;
-            return false;
-        }
+        } 
+            
+        std::cout << "Incorrect input addr" << std::endl;
+        return false;
 }
 
 std::string test(typeTest magicNumber ,std::string str){

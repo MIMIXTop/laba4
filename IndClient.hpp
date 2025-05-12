@@ -20,7 +20,7 @@ public:
         std::cout << "Destructor IndClient" << std::endl;
     }
 
-    std::string getGender(){
+    std::string getGender() const {
         return gender;
     }
 
@@ -28,15 +28,51 @@ public:
         gender = s;
     }
 
-    void printClient(){
-        std::cout << "IndClient name: " << getName() << std::endl; 
-        std::cout << "IndClient addr: " << getAddres() << std::endl; 
-        std::cout << "IndClient document number: " << getNumberDoc() << std::endl; 
-        std::cout << "IndClient gender: " << gender << std::endl; 
+    void printClient(std::ostream& os)const override{
+        os << "IndClient name: " << this->getName() << std::endl; 
+        os << "IndClient addr: " << getAddres() << std::endl; 
+        os << "IndClient document number: " << getNumberDoc() << std::endl; 
+        os << "IndClient gender: " << gender << std::endl; 
     }
 
     IndClient* clone() override {
         return new IndClient(*this);
+    }
+
+    IndClient& operator=(IndClient& cl) {
+        this->gender = cl.gender;
+        this->setAddr(cl.getAddres()); 
+        this->set(cl.getName());
+        this->set(cl.getNumberDoc());
+        return *this;
+    }
+
+    IndClient& operator=(IndClient&& cl) {
+        this->gender = std::move(cl.gender);
+        this->setAddr(std::move(cl.getAddres())); 
+        this->set(std::move(cl.getName()));
+        this->set(std::move(cl.getNumberDoc()));
+        return *this;
+    }
+
+    bool operator==(const Client& cl) override {
+        if(typeid(*this) != typeid(cl)) return false;
+        auto&& copy = static_cast<const IndClient&>(cl);
+        return this->getAddres() == copy.getAddres() && 
+                this->gender == copy.getGender() &&
+                this->getNumberDoc() == copy.getNumberDoc();
+    }
+
+    bool operator>(const Client& cl) override{
+        if(typeid(*this) != typeid(cl)) return typeid(*this).before(typeid(cl));
+        auto&& copy = static_cast<const IndClient&>(cl);
+        return this->getNumberDoc() > copy.getNumberDoc();
+    }
+
+    bool operator<(const Client& cl) override {
+        if (typeid(*this) != typeid(cl)) return typeid(*this).before(typeid(cl));
+        auto&& copy = static_cast<const IndClient&>(cl);
+        return this->getNumberDoc() < copy.getNumberDoc();
     }
 };
 

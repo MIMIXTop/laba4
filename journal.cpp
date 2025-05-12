@@ -6,20 +6,21 @@
 #include "function.hpp"
 #include "UrClient.hpp"
 #include "IndClient.hpp"
+#include "MyException.hpp"
 
-std::string Journal::getTelefonNumber(){
+std::string Journal::getTelefonNumber() const{
     return m_telefonNumber;
 }
 
-std::string Journal::getCompaniName(){
+std::string Journal::getCompaniName() const {
     return m_companiName;
 }
 
-std::list<Client*> Journal::getClients(){
+std::list<Client*> Journal::getClients() const {
     return m_clients;
 }
 
-int Journal::getSizeListOfClient(){
+int Journal::getSizeListOfClient() const {
     return m_clients.size();
 }
 
@@ -38,12 +39,6 @@ void Journal::setAllFields(std::string compName, std::string tel, std::list<Clie
 }
 
 void Journal::addClient(Client* cl) {
-    /*if (!m_clients.empty()) {
-        m_clients.push_back(cl); 
-    } else {
-        m_clients.resize(1);
-        m_clients.begin()->set(cl.getName(), cl.getAddres(), cl.getNumberDoc());
-    }*/
    m_clients.push_back(cl);
 }
 
@@ -112,19 +107,52 @@ void Journal::modCompami(compFields field){
     }
 }
 
-void Journal::print(){
-    std::cout << "Compani name: " << m_companiName << std::endl;
-    std::cout << "Compani tel: " << m_telefonNumber << std::endl;
-    int i = 1;
-    for (auto &&client : m_clients) {
-        std::cout << "----------------[ "<< i++ <<" ]-----------------" << std::endl;
-        client->printClient();
-    }
-    
-}
-
 void Journal::createCopyList(Client& cl, int number){
     for(int i = 0; i < number;++i){
         m_clients.emplace_back(cl.clone());
     }
+}
+
+Journal Journal::operator+ (Client* cl) {
+    this->addClient(cl);
+    return *this;
+}
+
+Journal& Journal::operator++() {
+    this->addClient(*this->m_clients.begin());
+    return *this;
+}
+
+Journal Journal::operator++(int) {
+    auto copy = *this;
+    this->addClient(*this->m_clients.begin());
+    return copy;
+}
+
+Client* Journal::operator[] (int counter) {
+    if (counter > this->m_clients.size()) {throw std::my_out_of_range("");} //* необходимо в будущем вернуть std::out_of_range
+
+    auto it = this->m_clients.begin();
+
+    std::advance(it, counter);
+
+    return *it;
+}
+
+std::ostream& operator<<(std::ostream &os,const Journal& list) {
+    os << "Compani name: " << list.getCompaniName() << std::endl;
+    os << "Compani tel: " << list.getTelefonNumber() << std::endl;
+    int i = 1;
+    for (auto &&client : list.getClients()) {
+        os << "----------------[ "<< i++ <<" ]-----------------" << std::endl;
+        os << client;
+    }
+    return os;
+}
+
+Journal& Journal::operator=(const Journal& jr) {
+    this->m_clients = jr.getClients();
+    this->m_companiName = jr.getCompaniName();
+    this->m_telefonNumber = jr.getTelefonNumber();
+    return *this;
 }

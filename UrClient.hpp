@@ -20,7 +20,7 @@ public:
         std::cout << "Destructor UrClient" << std::endl;
     }
 
-    std::string getType(){
+    std::string getType() const{
         return type;
     }
 
@@ -28,15 +28,51 @@ public:
         type = s;
     }
 
-    void printClient(){
-        std::cout << "UrClient name: " << getName() << std::endl; 
-        std::cout << "UrClient addr: " << getAddres() << std::endl; 
-        std::cout << "UrClient document number: " << getNumberDoc() << std::endl; 
-        std::cout << "UrClient UrClient: " << type << std::endl; 
+    void printClient(std::ostream& os) const override{
+        os << "UrClient name: " << getName() << std::endl; 
+        os << "UrClient addr: " << getAddres() << std::endl; 
+        os << "UrClient document number: " << getNumberDoc() << std::endl; 
+        os << "UrClient UrClient: " << type << std::endl; 
     }
 
     UrClient* clone() override {
         return new UrClient(*this);
+    }
+
+    UrClient& operator=(UrClient& cl) {
+        this->type = cl.type;
+        this->setAddr(cl.getAddres()); 
+        this->set(cl.getName());
+        this->set(cl.getNumberDoc());
+        return *this;
+    }
+
+    UrClient& operator=(UrClient&& cl) {
+        this->type = std::move(cl.getType());
+        this->setAddr(std::move(cl.getAddres())); 
+        this->set(std::move(cl.getName()));
+        this->set(std::move(cl.getNumberDoc()));
+        return *this;
+    }
+
+    bool operator==(const Client& cl) override {
+        if(typeid(*this) != typeid(cl)) return false;
+        auto&& copy = static_cast<const UrClient&>(cl);
+        return this->getAddres() == copy.getAddres() && 
+                this->type == copy.getType() &&
+                this->getNumberDoc() == copy.getNumberDoc();
+    }
+
+    bool operator>(const Client& cl) override{
+        if(typeid(*this) != typeid(cl)) return typeid(*this).before(typeid(cl));
+        auto&& copy = static_cast<const UrClient&>(cl);
+        return this->getNumberDoc() > copy.getNumberDoc();
+    }
+
+    bool operator<(const Client& cl) override {
+        if (typeid(*this) != typeid(cl)) return typeid(*this).before(typeid(cl));
+        auto&& copy = static_cast<const UrClient&>(cl);
+        return this->getNumberDoc() < copy.getNumberDoc();
     }
 };
 

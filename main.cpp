@@ -1,12 +1,15 @@
 #include <iostream>
 #include <string>
-#include <vector> 
+#include <vector>
+
+#include <algorithm> 
 
 #include "client.hpp"
 #include "journal.hpp"
 #include "function.hpp"
 #include "UrClient.hpp"
 #include "IndClient.hpp"
+#include "templateVector.hpp"
 
 int main(){
     std::vector<Journal> journals;
@@ -20,13 +23,6 @@ int main(){
     UrClient ur = UrClient{"BOB","st.jh 8",12,"OOO"};
     IndClient id = IndClient{"BOB","st.jh 8",12,"man"};
 
-/*     Client cl;
-    Client bb = Client{"BOB","st.jh 8",12}; */
-    /*
-
-    delete ur;
-    delete id;
-    pause();*/
     int num;
 
 
@@ -46,41 +42,9 @@ int main(){
 
                     switch (choice)
                     {
-                    /* case addMenu::ADD_CLIENT:
-
-                        if (journals.size() == 0 && choice == 1){
-                            std::cout << "Compani list is empty" << std::endl;
-                            pause();
-                            break; 
-                        }
-                        
-                        name = test(M_NAME,"Entry client name: ");
-                        addr = test(M_ADDR, "Entry client addr: ");
-                        num = stoi(test(M_INT,"Entry client number of document: "));
-
-                        if(journals.size() != 1){
-                            while (true) {
-                                num = stoi(test(M_INT,"Enter the company number to be added: "));
-                                if(num <= journals.size()) {
-                                    break;
-                                }
-                                std::cout << "Invalid input" << std::endl;
-                            }
-                        }else{
-                            journals.begin()->addClient(new Client(name,addr,num));
-                            pause();
-                            std::cin.clear();
-                            break;
-                        }
-
-                        journals.at(num - 1).addClient(new Client(name,addr,num));
-                        pause();
-                        std::cin.clear();
-                        break; */
                     case addMenu::ADD_COMPANI:
                         name = test(M_NAME,"Entry compani name: ");
                         s = test(M_TEL,"Entry compani tel: ");
-                        //journal.setAllFields(name, s, {});
 
                         journals.push_back(Journal{name, s, {}});
                         pause();
@@ -437,16 +401,12 @@ int main(){
                 num = 1;
                 for (auto &&now : journals) {
                     std::cout << "================< "<< num++ <<" >===============" << std::endl;
-                    now.print();
+                    std::cout << now;
                 }
                 pause();
                 break;
             case 5:
                 exit(0);
-                break;
-            case 6:
-                
-                //journals.at(0).createCopyList(bb,10);
                 break;
             default:
                 break;

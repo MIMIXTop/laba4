@@ -45,16 +45,21 @@ public:
         std::cout << "Move constructor Journal" << std::endl;
     }
 
+    Journal operator+ (Client* cl);
+    Journal& operator++();
+    Journal operator++(int);
+    Client* operator[] (int counter); 
+
     //особенность С++
-    Journal& operator=(const Journal &jor) = default;
+    Journal& operator=(const Journal &jor);
     Journal& operator=(Journal &&jor) noexcept = default;
 
-    void print();
+    //void print();
 
-    std::string getTelefonNumber();
-    std::string getCompaniName();
-    std::list<Client*> getClients();
-    int getSizeListOfClient();
+    std::string getTelefonNumber() const;
+    std::string getCompaniName() const;
+    std::list<Client*> getClients() const;
+    int getSizeListOfClient() const;
 
     void modClient(int clNum, clientFilds field);
     void modCompami(compFields field);
@@ -70,5 +75,7 @@ public:
     void removClient(int index);
     void removClient();
 };
+
+std::ostream& operator<<(std::ostream &os,const Journal& list);
 
 #endif //JOURNAL_HPP
